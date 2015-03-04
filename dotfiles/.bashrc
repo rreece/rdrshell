@@ -96,7 +96,7 @@ fi
 #-----------------------------------------------------------------------------
 
 #!/bin/bash
-BASH_FILES=$HOME/.rdrshell_init/*
+BASH_FILES=$HOME/.rdrshell/init/*
 for f in $BASH_FILES
 do
     # take action on each file.
