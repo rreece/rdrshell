@@ -1,37 +1,0 @@
-10
-
-dir
-379015
-svn+ssh://reece@svn.cern.ch/reps/atlasinst/Institutes/UCSC/reece/dotfiles/trunk/.vim
-svn+ssh://reece@svn.cern.ch/reps/atlasinst
-
-
-
-2013-12-06T18:39:50.179386Z
-345755
-reece
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-28d52da6-859c-4cdc-abcc-1ec3d2c02001
-
-colors
-dir
-
-dict
-dir
-
-plugin
-dir
-
