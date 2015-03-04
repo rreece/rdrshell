@@ -1,0 +1,66 @@
+#!/bin/bash
+#-----------------------------------------------------------------------------
+# file: .bash_init
+# author: Ryan Reece <ryan.reece@cern.ch>
+# created : 2012-12-22
+# -----------------------------------------------------------------------------
+
+
+#xset b off
+
+
+#-----------------------------------------------------------------------------
+# history settings
+#-----------------------------------------------------------------------------
+export HISTFILE=~/.bash_history
+export HISTCONTROL=''
+export HISTSIZE=40000
+export HISTFILESIZE=100000
+export HISTTIMEFORMAT="[%Y-%m-%d - %H:%M:%S] "
+
+shopt -s histappend
+shopt -s cmdhist
+shopt -s lithist
+
+
+#-----------------------------------------------------------------------------
+# shell options
+#-----------------------------------------------------------------------------
+# http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+#shopt -s autocd
+shopt -s cdable_vars
+shopt -s cdspell
+shopt -s checkwinsize
+#shopt -s dirspell
+shopt -s expand_aliases
+shopt -s dotglob
+shopt -s extglob
+shopt -s nocaseglob
+#shopt -s nullglob
+
+# http://armenianeagle.com/2008/03/18/svn-warning-cannot-set-lc_ctype-locale-solution/
+export LC_ALL=C
+
+
+#-----------------------------------------------------------------------------
+# default editor: vim
+#-----------------------------------------------------------------------------
+export EDITOR="vim"
+export SVN_EDITOR="vim"
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+
+#-----------------------------------------------------------------------------
+# bash_completion
+#-----------------------------------------------------------------------------
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion
+fi
+
+
+# EOF
