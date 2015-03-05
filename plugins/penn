@@ -227,7 +227,6 @@ mysetup_oracle()
             echo "  - not setting up oracle"
         ;;
     esac
-    alias ora="~/.rlfe/rlfe -size 150 sqlplus atlas_trt_elec_w/B.W1ll1ams@ATLAS_ELTRT"
 }
 
 if $SETUP_ORACLE ; then
