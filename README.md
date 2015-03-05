@@ -32,7 +32,7 @@ For example:
 License
 ----------------------------------
 
--   Copyright 2011-2015 The authors
+-   Copyright 2015 The authors
 -   License: GPL <http://www.gnu.org/licenses/gpl.html>
 
 
