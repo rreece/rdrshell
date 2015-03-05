@@ -1,0 +1,243 @@
+#!/bin/bash
+#-----------------------------------------------------------------------------
+# file: .bash_env
+# author: Ryan Reece <ryan.reece@cern.ch>
+# date : 2010-06-21
+# -----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# control
+#-----------------------------------------------------------------------------
+SETUP_GCC=true
+SETUP_PYTHON=true
+SETUP_ROOT=true
+SETUP_PYQT=false
+SETUP_NUMPY=false
+SETUP_ORACLE=false
+
+
+echo -ne "$LIGHTCYAN"
+
+
+#-----------------------------------------------------------------------------
+# basic environment setup
+#-----------------------------------------------------------------------------
+case "$ME" in
+    ucsct3)
+        echo -ne "${NC}"
+
+        if [ -f /etc/bashrc_t3 ]; then
+            source /etc/bashrc_t3
+        fi
+
+        echo -ne "$LIGHTCYAN"
+    ;;
+    ucsc_web)
+        export PATH=/opt/csw/bin:/usr/sfw/bin:$PATH
+    ;;
+    *)
+        true
+    ;;
+esac
+
+
+#-----------------------------------------------------------------------------
+# gcc
+#-----------------------------------------------------------------------------
+mysetup_gcc()
+{
+    case "$ME" in
+        ucsct3)
+            true # use default local setup (GCC 4.4.7)
+        ;;
+        ucsc_web)
+            true
+        ;;
+        *)
+            echo "  - not setting up gcc"
+        ;;
+    esac
+}
+
+if $SETUP_GCC ; then
+    mysetup_gcc
+fi
+
+
+#-----------------------------------------------------------------------------
+# python
+#-----------------------------------------------------------------------------
+mysetup_python()
+{
+    case "$ME" in
+        ucsct3)
+            true # use default local setup (python 2.7.5 compiled with GCC 4.4.7)
+        ;;
+        ucsc_web)
+            true
+        ;;
+        *)
+            echo "  - not setting up python"
+        ;;
+    esac
+}
+
+if $SETUP_PYTHON ; then
+    mysetup_python
+fi
+
+
+#-----------------------------------------------------------------------------
+# ROOT and PyROOT
+#-----------------------------------------------------------------------------
+mysetup_root()
+{
+    do_setup_root=false
+    case "$ME" in
+        ucsct3)
+            true # use default local setup (ROOT v5.34.17 for python 2.7.5 and gcc 4.4.7)
+        ;;
+        ucsc_web)
+            true
+        ;;
+        *)
+        echo "  - not setting up root"
+        ;;
+    esac
+
+    if [ $do_setup_root ]; then
+        # if ROOTSYS is defined, setup the root paths
+        export PATH=$ROOTSYS/bin:$PATH
+        export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
+        export PYTHONPATH=$ROOTSYS/pyroot:$ROOTSYS/lib:$PYTHONPATH
+    fi
+}
+
+if $SETUP_ROOT ; then
+    mysetup_root
+fi
+
+
+#-----------------------------------------------------------------------------
+# pyqt
+#-----------------------------------------------------------------------------
+mysetup_pyqt()
+{
+    case "$ME" in
+        *)
+            echo "  - not setting up PyQt"
+        ;;
+    esac
+}
+
+if $SETUP_PYQT ; then
+    mysetup_pyqt
+fi
+
+
+#-----------------------------------------------------------------------------
+# numpy and matplotlib
+#-----------------------------------------------------------------------------
+mysetup_numpy()
+{
+    case "$ME" in
+        *)
+            echo "  - not setting up numpy"
+        ;;
+    esac
+}
+
+if $SETUP_NUMPY ; then
+    mysetup_numpy
+fi
+
+
+#-----------------------------------------------------------------------------
+# castor
+#-----------------------------------------------------------------------------
+mysetup_castor()
+{
+    case "$ME" in
+        afs)
+#            export STAGE_SVCCLASS="atlcal"
+            export STAGE_SVCCLASS="atldata"
+#            export STAGE_SVCCLASS="atlascernuserdisk"
+        ;;
+        *)
+            echo "  - not setting up CASTOR"
+        ;;
+    esac
+}
+
+if [ $ME = "afs" ]; then
+    mysetup_castor
+fi
+
+
+#-----------------------------------------------------------------------------
+# athena and grid tools setup
+#-----------------------------------------------------------------------------
+case "$ME" in
+    ucsct3)
+        true
+#        dq2-setup()
+#        {   
+#            export DQ2_LOCAL_SITE_ID=ROAMING
+#           # export DQ2_LOCAL_SITE_ID=SLACXRD_SCRATCHDISK
+#            localSetupDQ2Client --skipConfirm
+#            voms-proxy-init -voms atlas
+#        }   
+    ;;
+    *)
+        true
+    ;;
+esac
+
+
+#-----------------------------------------------------------------------------
+# xrootd
+#-----------------------------------------------------------------------------
+# case "$ME" in
+#     pennt3)
+#         xls()
+#         {
+#             xrd hn.at3f dirlist $1
+#         }
+#     ;;
+#     ucsct3)
+#         xls-headprv()
+#         {
+#             xrd headprv dirlist $1
+#         }
+#         xls-nfsprv()
+#         {
+#             xrd nfsprv dirlist $1
+#         }
+#     ;;
+# esac
+
+
+#-----------------------------------------------------------------------------
+# oracle
+#-----------------------------------------------------------------------------
+mysetup_oracle()
+{
+    case "$ME" in
+        *)
+            echo "  - not setting up oracle"
+        ;;
+    esac
+    alias ora="~/.rlfe/rlfe -size 150 sqlplus atlas_trt_elec_w/B.W1ll1ams@ATLAS_ELTRT"
+}
+
+if $SETUP_ORACLE ; then
+    mysetup_oracle
+fi
+
+
+#-----------------------------------------------------------------------------
+# guarantee back to no-color
+echo -ne "$NC"
+
+
+# EOF
