@@ -1,0 +1,436 @@
+#!/bin/bash
+#-----------------------------------------------------------------------------
+# file: .bash_personal
+# author: Ryan Reece <ryan.reece@cern.ch>
+# date : 2011-09-13
+# -----------------------------------------------------------------------------
+
+
+#-----------------------------------------------------------------------------
+# some misc setup depending on the environment
+#-----------------------------------------------------------------------------
+
+## depending on the OS
+#-----------------------------------------------------------------------------
+case "${OS_SIMPLE}" in
+    linux)
+        export PATH=/usr/local/bin:$PATH
+        export PATH=$HOME/.local/bin:$PATH
+    ;;
+    mac)
+        export UNISONLOCALHOSTNAME="hitch.local"
+        export PATH=/sw/bin:$PATH
+        export PATH=/opt/local/bin:/opt/local/sbin:$PATH  ## macports
+        export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages:$PYTHONPATH  ## macports
+        export PATH=/Users/reece/Library/Haskell/ghc-7.6.3/lib/pandoc-1.11.1/bin:$PATH ## pandoc
+    ;;
+    *)
+        true
+    ;;
+esac
+
+## depending on the host
+#-----------------------------------------------------------------------------
+case "$HOSTNAME" in
+    borg5)
+        ## fix ls (does'nt allow -G option on this host for some reason)
+        alias l="ls -CF"
+        alias ls="\ls -CF"
+        alias lsd="\ls -Cd */"
+        alias ld="\ls -Cd */"
+        alias ll="\ls -lhF"
+        alias la="\ls -AF"
+        alias lt="\ls -lhtFr"
+        alias l1="\ls -1F"
+        alias lm="\ls -AlhtFr | tail"
+        unalias rm
+    ;;
+    darwin)
+        export TERM="xterm-color"
+        alias check_raid="cat /proc/mdstat"
+        alias check_raid0="mdadm -D /dev/md0"
+        alias check_raid1="mdadm -D /dev/md1"
+    ;;
+    *)
+        true
+    ;;
+esac
+
+## depending on the ME
+#-----------------------------------------------------------------------------
+case "$ME" in
+    nas)
+        export PATH=/opt/bin:/opt/sbin:$PATH
+    ;;
+    *)
+        true
+    ;;
+esac
+
+
+#-----------------------------------------------------------------------------
+# PATH
+#-----------------------------------------------------------------------------
+export PATH=$HOME:$PATH
+export PATH=$HOME/code/bash:$PATH
+
+
+#-----------------------------------------------------------------------------
+# LD_LIBRARY_PATH
+#-----------------------------------------------------------------------------
+# export LD_LIBRARY_PATH=$HOME/code/cxx/lib:$LD_LIBRARY_PATH
+
+
+#-----------------------------------------------------------------------------
+# python
+#-----------------------------------------------------------------------------
+## PYTHONSTARTUP -- called at the start of a python interactive session
+export PYTHONSTARTUP=$HOME/code/python/modules/pythonstartup.py
+
+## PYTHONPATH -- where you can import modules
+export PYTHONPATH=$HOME/code/python/exe:$PYTHONPATH
+export PYTHONPATH=$HOME/code/python/modules:$PYTHONPATH
+export PYTHONPATH=$HOME/code/python/scripts:$PYTHONPATH
+export PYTHONPATH=$HOME/code/root:$PYTHONPATH
+export PYTHONPATH=$HOME:$PYTHONPATH
+
+#export PYTHONPATH=$HOME/rel:$PYTHONPATH
+#export PYTHONPATH=$HOME/rel/pyutils:$PYTHONPATH
+#export PYTHONPATH=$HOME/projects:$PYTHONPATH
+
+## PATH -- scripts you can call
+export PATH=$HOME/code/python/exe:$PATH
+export PATH=$HOME/code/python/scripts:$PATH
+export PATH=$HOME/code/root:$PATH
+
+export PATH=$HOME/rel/root2html:$PATH
+export PATH=$HOME/rel/tree_trimmer:$PATH
+export PATH=$HOME/rel/pyscripts:$PATH
+
+
+#-----------------------------------------------------------------------------
+# CERN
+#-----------------------------------------------------------------------------
+export CERN_USER="reece"
+export MY_MAXIDISK_DIR="/afs/cern.ch/atlas/maxidisk/d71/www/share/"
+
+## svn
+export SVN_USER=${CERN_USER}
+export SVNATLASGRP=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasgrp
+export SVNATLASOFF=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasoff
+export SVNATLASPERF=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasperf
+# export SVNATLASUSR=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasusr # deprecated, now readonly
+export SVNATLASUSR=svn+ssh://svn.cern.ch/reps/atlas-reece
+export SVNATLASPHYS=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasphys
+export SVNATLASINST=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasinst
+export SVNATLASGROUPS=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasgroups
+export SVNUCSC=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasinst/Institutes/UCSC
+export SVNPENN=svn+ssh://${CERN_USER}@svn.cern.ch/reps/penn
+export SVNTRT=svn+ssh://${CERN_USER}@svn.cern.ch/reps/trtdaq
+export SVNROOT=${SVNATLASOFF}
+
+## ssh
+alias pcpenns="ssh -X ${CERN_USER}@pc-penn-s-01.cern.ch"
+alias pcpenn3="ssh -X ${CERN_USER}@pc-penn-d-03.cern.ch"
+alias pcpenn4="ssh -X ${CERN_USER}@pc-penn-d-04.cern.ch"
+alias lxplus="ssh -X ${CERN_USER}@lxplus.cern.ch"
+alias lx="ssh -X ${CERN_USER}@lxplus.cern.ch"
+alias lx5="ssh -X ${CERN_USER}@lxplus5.cern.ch"
+alias trtdaq2="ssh -X ${CERN_USER}@trtdaq2.cern.ch"
+
+## scp
+alias scp_lx="scp -r ${CERN_USER}@lxplus.cern.ch:"
+
+## printers
+alias print22="lpr -P 22-1-COR "
+alias print40="lpr -P 40-RD-COR "
+
+## athena
+alias makeit="cmt config; source setup.sh; make"
+
+
+#-----------------------------------------------------------------------------
+# kerberos
+#-----------------------------------------------------------------------------
+
+## kinit
+alias ki="kinit ${CERN_USER}@CERN.CH"
+
+## depending on the host
+# case "$ME" in
+#     ucsct3)
+#         export KRB5_CONFIG=${HOME}/.krb5.conf
+#     ;;
+#     *)
+#         true
+#     ;;
+# esac
+
+
+#-----------------------------------------------------------------------------
+# UCSC
+#-----------------------------------------------------------------------------
+export UCSC_USER="reece"
+export PFLOCK_QUEUE="/export/share/data/public/pflock/cp2"
+
+export UCSC_DESKTOP_IP="128.114.130.117"
+alias ssh_ucsc_desk="ssh ${UCSC_USER}@${UCSC_DESKTOP_IP}"
+
+
+alias ssh_ucsct3="ssh ${UCSC_USER}@atlas02.ucsc.edu"
+alias t3="ssh ${UCSC_USER}@atlas02.ucsc.edu"
+alias t3x="ssh -X ${UCSC_USER}@atlas02.ucsc.edu"
+alias ssh_atlas01="ssh ${UCSC_USER}@atlas01.ucsc.edu"
+alias ssh_atlas02="ssh ${UCSC_USER}@atlas02.ucsc.edu"
+alias ssh_atlas03="ssh ${UCSC_USER}@atlas03.ucsc.edu"
+alias ssh_atlas04="ssh ${UCSC_USER}@atlas04.ucsc.edu"
+alias ssh_ucsc_web="ssh ${UCSC_USER}@reece.scipp.ucsc.edu"
+
+
+#-----------------------------------------------------------------------------
+# UPenn
+#-----------------------------------------------------------------------------
+export PENN_USER="rreece"
+
+## ssh
+alias ssh_higgs="ssh ${PENN_USER}@higgs.hep.upenn.edu"
+alias ssh_dionysus="ssh ${PENN_USER}@dionysus.hep.upenn.edu"
+alias ssh_lxsrv02="ssh ${PENN_USER}@lxsrv02.hep.upenn.edu"
+alias ssh_ptklx="ssh ${PENN_USER}@ptklx.hep.upenn.edu"
+alias ssh_zeus="ssh ${PENN_USER}@zeus.hep.upenn.edu"
+alias ssh_pennt3="ssh ${PENN_USER}@at3i00.hep.upenn.edu"
+
+## scp
+alias scp_zeus="scp -r ${PENN_USER}@zeus.hep.upenn.edu:"
+alias scp_dio="scp -r ${PENN_USER}@dionysus.hep.upenn.edu:"
+
+
+#-----------------------------------------------------------------------------
+# at&t u-verse router : http://192.168.1.254/
+#-----------------------------------------------------------------------------
+export ROUTER_EXTERNAL_IP="99.106.196.78"
+export ROUTER_INTERNAL_IP="192.168.1.254"
+export MY_WEBSITE="http://${ROUTER_EXTERNAL_IP}/"
+alias ssh_att="ssh root@${ROUTER_EXTERNAL_IP}"
+
+# Reboot my home Linksys WAG160N / WAG54 / WAG320 / WAG120N Router / Gateway from *nix.
+# alias rebootlinksys="curl -u 'admin:my-super-password' 'http://192.168.1.2/setup.cgi?todo=reboot'"
+ 
+# Reboot tomato based Asus NT16 wireless bridge 
+# alias reboottomato="ssh admin@192.168.1.1 /sbin/reboot"
+
+
+#-----------------------------------------------------------------------------
+# darwin, my personal cloud
+#-----------------------------------------------------------------------------
+#export DARWIN_IP="192.168.1.63"
+#export DARWIN_IP="192.168.1.74"
+export DARWIN_IP="99.106.196.78"
+alias ssh_darwin="ssh root@${DARWIN_IP}"
+
+
+#-----------------------------------------------------------------------------
+# descartes, the netbook
+#-----------------------------------------------------------------------------
+export DESCARTES_IP="192.168.1.75"
+alias ssh_descartes="ssh reece@${DESCARTES_IP}"
+
+
+#-----------------------------------------------------------------------------
+# others
+#-----------------------------------------------------------------------------
+alias ssh_euler="ssh reece@reece.dyndns.biz"
+alias ssh_bnl="ssh rreece@atlasgw.bnl.gov"
+
+
+#-----------------------------------------------------------------------------
+# MY_SHARE_DIR
+#-----------------------------------------------------------------------------
+case "$ME" in
+    afs)
+        export MY_SHARE_DIR="/afs/cern.ch/user/r/${CERN_USER}/www/share/"
+    ;;
+    pennt3)
+        export MY_SHARE_DIR="/web/Analysis/${CERN_USER}/share/"
+    ;;
+    ucsct3)
+        export MY_SHARE_DIR="reece.scipp.ucsc.edu:share/"
+    ;;
+    ubuntu)
+        case "$HOSTNAME" in
+            descartes)
+                export MY_SHARE_DIR="/var/www/share"
+            ;;
+            *)
+                export MY_SHARE_DIR="lxplus.cern.ch:www/share/"
+            ;;
+        esac
+    ;;
+    *)
+        export MY_SHARE_DIR="${CERN_USER}@lxplus.cern.ch:www/share/"
+    ;;
+esac
+
+## share
+#share()
+#{
+#    for f in "$@"
+#    do
+#        cp -rf $f ${MY_SHARE_DIR}
+#    done
+#}
+
+
+#-----------------------------------------------------------------------------
+# tossing files (MY_TOSS_INBOX)
+#-----------------------------------------------------------------------------
+case "$ME" in
+    afs)
+        export MY_TOSS_INBOX=$HOME/www/share/inbox
+    ;;
+    nas)
+        export MY_TOSS_INBOX=/nfs/reece/inbox
+    ;;
+    *)
+        true
+    ;;
+esac
+
+toss_darwin()
+{
+    for f in "${@%/}"
+    do
+        rsync -ahC -i $f root@${DARWIN_IP}:/nfs/reece/inbox/
+    done
+}
+
+toss_lx()
+{
+    for f in "${@%/}"
+    do
+        rsync -ahC -i $f ${CERN_USER}@lxplus.cern.ch:www/share/inbox/
+    done
+}
+
+toss_ucsc_web()
+{
+    for f in "${@%/}"
+    do
+#        rsync -ahC -i $f ${UCSC_USER}@reece.scipp.ucsc.edu:share/inbox/
+        scp -r $f ${UCSC_USER}@reece.scipp.ucsc.edu:html/share/inbox/
+    done
+
+}
+
+alias share="toss_ucsc_web"
+
+
+#-----------------------------------------------------------------------------
+# MY_BACKUP
+#-----------------------------------------------------------------------------
+case "$ME" in
+    nas)
+        export MY_BACKUP=/nfs/reece/backup
+        alias cd_backup="cd ${MY_BACKUP}"
+    ;;
+    *)
+        alias backup="source ${HOME}/.unison/backup.sh"
+    ;;
+esac
+
+
+#-----------------------------------------------------------------------------
+# note-taking
+#-----------------------------------------------------------------------------
+
+minutes()
+{
+    echo "" >> ~/minutes.log
+    echo "" >> ~/minutes.log
+    echo "# `date` #################################################" >> ~/minutes.log
+    echo "" >> ~/minutes.log
+    echo "" >> ~/minutes.log
+    vim + ~/minutes.log
+}
+
+log_cmd()
+{
+    cmd="$@"
+    echo "`date`  $cmd" >> ~/cmd.log
+}
+
+alias log_prev='echo Last command run was [!!]'
+
+note()
+{
+    year=`date +%Y`
+    if [ ! -d "${HOME}/notes/${year}" ]; then
+#        mkdir -p ${HOME}/notes/${year}
+        echo "You don't have the notes.  Check them out:"
+        echo "  cd ~/ && svn co \$SVNATLASUSR/reece/notes notes"
+        return;
+    fi
+    cd ${HOME}/notes/${year}
+
+    name="scratch"
+    title="Scratch notes for `date +%Y-%m-%d`"
+    if [ -n "$1" ]; then
+        name=`echo "$@" | tr " " "-"`
+        title="$@"
+    fi
+    fn=`date +%Y-%m-%d`"."${name}".md"
+
+    echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"" >> ${fn}
+    echo "      \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">" >> ${fn}
+    echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">" >> ${fn}
+    echo "<head>" >> ${fn}
+    echo "<title>${title}</title>" >> ${fn}
+    echo "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\"/>" >> ${fn}
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"reece-markdown.css\"/>" >> ${fn}
+    echo "</head>" >> ${fn}
+    echo "<body>" >> ${fn}
+    echo "" >> ${fn}
+    echo "" >> ${fn}
+    echo "${title}" >> ${fn}
+    echo "================================================================================" >> ${fn}
+    echo "" >> ${fn}
+    echo "" >> ${fn}
+    echo "" >> ${fn}
+    echo "" >> ${fn}
+    echo "" >> ${fn}
+    echo "--------------------------------------------------------------------------------" >> ${fn}
+    echo "" >> ${fn}
+    echo "<img src=\"img/my_email.png\" alt=\"my email address\"/> <br/>" >> ${fn}
+    echo "`date`" >> ${fn}
+    echo "" >> ${fn}
+    echo "</body>" >> ${fn}
+    echo "</html>" >> ${fn}
+
+    cmd="vim +16 "${fn}
+    $cmd
+}
+
+cdnotes()
+{
+    year=`date +%Y`
+    cd ${HOME}/notes/${year}
+}
+
+last_note()
+{
+    cdnotes
+    x=`latest *.md`
+    cmd="vim + $x"
+    echo $cmd
+    $cmd
+}
+
+svn_update_notes()
+{
+    ssh lxplus.cern.ch "cd ~/notes; svn up"
+#    ssh reece@reece.scipp.ucsc.edu "cd ~/html/notes; /opt/csw/bin/svn up"
+}
+
+alias sp="gedit ~/scratch_pad.txt &"
+
+

@@ -24,6 +24,9 @@ Then run the install script, that simply copies the dotfiles into your $HOME:
 
 Then you can add whatever plugins or personal scripts you want to the .rdrshell/init/
 directory and they will be sourced automatically in your next bash shell.
+For example:
+
+    cp plugins/hep init/
 
 
 License

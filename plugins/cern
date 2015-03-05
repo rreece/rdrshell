@@ -1,0 +1,308 @@
+#!/bin/bash
+#-----------------------------------------------------------------------------
+# file: .bash_env
+# author: Ryan Reece <ryan.reece@cern.ch>
+# date : 2010-06-21
+# -----------------------------------------------------------------------------
+
+
+#-----------------------------------------------------------------------------
+# control
+#-----------------------------------------------------------------------------
+SETUP_GCC=true
+SETUP_PYTHON=true
+SETUP_ROOT=true
+SETUP_PYQT=false
+SETUP_NUMPY=false
+SETUP_ORACLE=false
+
+
+#-----------------------------------------------------------------------------
+# gcc
+#-----------------------------------------------------------------------------
+mysetup_gcc()
+{
+    case "$ME" in
+        afs)
+            if [[ $SLC_VERSION = "4" && $ARCH = "i386" ]]; then
+                echo "  - setting up gcc 4.3"
+                source /afs/cern.ch/sw/lcg/contrib/gcc/4.3/slc4_ia32_gcc34/setup.sh
+            elif [[ $SLC_VERSION = "4" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up gcc 4.3"
+                source /afs/cern.ch/sw/lcg/contrib/gcc/4.3/slc4_amd64_gcc34/setup.sh
+            elif [[ $SLC_VERSION = "5" && $ARCH = "i386" ]]; then
+                echo "  - setting up gcc 4.3"
+                source /afs/cern.ch/sw/lcg/contrib/gcc/4.3/i686-slc5-gcc34-opt/setup.sh
+            elif [[ $SLC_VERSION = "5" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up gcc 4.3"
+                source /afs/cern.ch/sw/lcg/contrib/gcc/4.3/x86_64-slc5-gcc43-opt/setup.sh
+            elif [[ $SLC_VERSION = "6" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up gcc 4.7"
+                source /afs/cern.ch/sw/lcg/contrib/gcc/4.7/x86_64-slc6-gcc47-opt/setup.sh
+            else
+                echo "  - not setting up gcc"
+            fi
+        ;;
+        *)
+            echo "  - not setting up gcc"
+        ;;
+    esac
+}
+
+if $SETUP_GCC ; then
+    mysetup_gcc
+fi
+
+
+#-----------------------------------------------------------------------------
+# python
+#-----------------------------------------------------------------------------
+mysetup_python()
+{
+    case "$ME" in
+        afs)
+            if [[ $SLC_VERSION = "4" && $ARCH = "i386" ]]; then
+                echo "  - setting up Python 2.5.4"
+                export PYTHONDIR=/afs/cern.ch/sw/lcg/external/Python/2.5.4/slc4_ia32_gcc43
+            elif [[ $SLC_VERSION = "4" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up Python 2.5.4"
+                export PYTHONDIR=/afs/cern.ch/sw/lcg/external/Python/2.5.4/slc4_amd64_gcc43
+            elif [[ $SLC_VERSION = "5" && $ARCH = "i386" ]]; then
+                echo "  - setting up Python 2.5.4"
+                export PYTHONDIR=/afs/cern.ch/sw/lcg/external/Python/2.5.4/i686-slc5-gcc43-opt
+            elif [[ $SLC_VERSION = "5" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up Python 2.6.5"
+                export PYTHONDIR=/afs/cern.ch/sw/lcg/external/Python/2.6.5/x86_64-slc5-gcc43-opt
+            elif [[ $SLC_VERSION = "6" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up Python 2.7.3"
+                export PYTHONDIR=/afs/cern.ch/sw/lcg/external/Python/2.7.3/x86_64-slc6-gcc47-opt
+            else
+                echo "  - not setting up python"
+            fi
+            export PATH=$PYTHONDIR/bin:$PATH
+            export LD_LIBRARY_PATH=$PYTHONDIR/lib:$LD_LIBRARY_PATH
+        ;;
+        *)
+            echo "  - not setting up python"
+        ;;
+    esac
+}
+
+if $SETUP_PYTHON ; then
+    mysetup_python
+fi
+
+
+#-----------------------------------------------------------------------------
+# ROOT and PyROOT
+#-----------------------------------------------------------------------------
+mysetup_root()
+{
+    do_setup_root=false
+    case "$ME" in
+        afs)
+            if [[ $SLC_VERSION = "4" && $ARCH = "i386" ]]; then
+                echo "  - setting up ROOT 5.26.00a"
+                export ROOTSYS=/afs/cern.ch/sw/lcg/app/releases/ROOT/5.26.00a/slc4_ia32_gcc43/root
+            elif [[ $SLC_VERSION = "4" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up ROOT 5.26.00a"
+                export ROOTSYS=/afs/cern.ch/sw/lcg/app/releases/ROOT/5.26.00a/slc4_amd64_gcc43/root
+            elif [[ $SLC_VERSION = "5" && $ARCH = "i386" ]]; then
+                echo "  - setting up ROOT 5.28.00a"
+                export ROOTSYS=/afs/cern.ch/sw/lcg/app/releases/ROOT/5.28.00a/i686-slc5-gcc43-opt/root
+            elif [[ $SLC_VERSION = "5" && $ARCH = "x86_64" ]]; then
+                echo "  - setting up ROOT 5.34.03"
+                export ROOTSYS=/afs/cern.ch/sw/lcg/app/releases/ROOT/5.34.03/x86_64-slc5-gcc43-opt/root
+            elif [[ $SLC_VERSION = "6" && $ARCH = "x86_64" ]]; then
+                source /afs/cern.ch/sw/lcg/app/releases/ROOT/5.34.09/x86_64-slc6-gcc47-opt/root/bin/thisroot.sh
+                export ROOTSYS=/afs/cern.ch/sw/lcg/app/releases/ROOT/5.34.09/x86_64-slc6-gcc47-opt/root
+                echo "  - setting up ROOT 5.34.03"
+            else
+                echo "  - not setting up root"
+            fi
+        ;;
+        *)
+        echo "  - not setting up root"
+        ;;
+    esac
+
+    if [ $do_setup_root ]; then
+        # if ROOTSYS is defined, setup the root paths
+        export PATH=$ROOTSYS/bin:$PATH
+        export LD_LIBRARY_PATH=$ROOTSYS/lib:$LD_LIBRARY_PATH
+        export PYTHONPATH=$ROOTSYS/pyroot:$ROOTSYS/lib:$PYTHONPATH
+    fi
+}
+
+if $SETUP_ROOT ; then
+    mysetup_root
+fi
+
+
+#-----------------------------------------------------------------------------
+# pyqt
+#-----------------------------------------------------------------------------
+mysetup_pyqt()
+{
+    case "$ME" in
+        afs)
+            if [ $SLC_VERSION = "4" ]; then
+                echo "  - setting up PyQt"
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/sip/4.7.9_python2.5/slc4_ia32_gcc34/lib/python/2.5/site-packages:$PYTHONPATH
+                export LD_LIBRARY_PATH=/afs/cern.ch/sw/lcg/external/sip/4.7.9_python2.5/slc4_ia32_gcc34/lib/python/2.5/site-packages:$LD_LIBRARY_PATH
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/pyqt/4.4.4_python2.5/slc4_ia32_gcc34/lib/python2.5/site-packages:$PYTHONPATH
+                export LD_LIBRARY_PATH=/afs/cern.ch/sw/lcg/external/qt/4.4.2/slc4_ia32_gcc34/lib:$LD_LIBRARY_PATH
+            elif [ $SLC_VERSION = "5" ]; then
+                echo "  - setting up PyQt"
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/sip/4.7.9_python2.5/slc4_ia32_gcc34/lib/python/2.5/site-packages:$PYTHONPATH
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/sip/4.7.9_python2.5/i686-slc5-gcc43-opt/lib/python/2.5/site-packages:$PYTHONPATH
+                export LD_LIBRARY_PATH=/afs/cern.ch/sw/lcg/external/sip/4.7.9_python2.5/i686-slc5-gcc43-opt/lib/python/2.5/site-packages:$LD_LIBRARY_PATH
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/pyqt/4.4.4_python2.5/i686-slc5-gcc43-opt/lib/python2.5/site-packages:$PYTHONPATH
+                export LD_LIBRARY_PATH=/afs/cern.ch/sw/lcg/external/qt/4.4.2/i686-slc5-gcc43-opt/lib:$LD_LIBRARY_PATH
+            else
+                echo "  - not setting up PyQt"
+            fi
+        ;;
+        *)
+            echo "  - not setting up PyQt"
+        ;;
+    esac
+}
+
+if $SETUP_PYQT ; then
+    mysetup_pyqt
+fi
+
+
+#-----------------------------------------------------------------------------
+# numpy and matplotlib
+#-----------------------------------------------------------------------------
+mysetup_numpy()
+{
+    case "$ME" in
+        afs)
+            if [ $SLC_VERSION = "4" ]; then
+                echo "  - setting up numpy"
+                export PYTHONPATH=/afs/cern.ch/atlas/software/builds/AtlasCore/15.5.1/InstallArea/i686-slc4-gcc34-opt/lib/python2.5:$PYTHONPATH
+            elif [ $SLC_VERSION = "5" ]; then
+                echo "  - setting up numpy"
+    #            export PYTHONPATH=/afs/cern.ch/atlas/software/builds/AtlasCore/latest/External/AtlasNumPy/x86_64-slc5-gcc43-opt/pkg-build-install-numpy/lib/python2.5:$PYTHONPATH
+                export PYTHONPATH=/afs/cern.ch/atlas/software/builds/AtlasCore/latest/InstallArea/x86_64-slc5-gcc43-opt/lib/python2.5:$PYTHONPATH
+                export LD_LIBRARY_PATH=/afs/cern.ch/atlas/software/builds/AtlasCore/latest/InstallArea/x86_64-slc5-gcc43-opt/lib:$LD_LIBRARY_PATH
+            else
+                echo "  - not setting up numpy"
+            fi
+        ;;
+        *)
+            echo "  - not setting up numpy"
+        ;;
+    esac
+}
+
+if $SETUP_NUMPY ; then
+    mysetup_numpy
+fi
+
+
+#-----------------------------------------------------------------------------
+# castor
+#-----------------------------------------------------------------------------
+mysetup_castor()
+{
+    case "$ME" in
+        afs)
+#            export STAGE_SVCCLASS="atlcal"
+            export STAGE_SVCCLASS="atldata"
+#            export STAGE_SVCCLASS="atlascernuserdisk"
+        ;;
+        *)
+            echo "  - not setting up CASTOR"
+        ;;
+    esac
+}
+
+if [ $ME = "afs" ]; then
+    mysetup_castor
+fi
+
+
+#-----------------------------------------------------------------------------
+# athena and grid tools setup
+#-----------------------------------------------------------------------------
+case "$ME" in
+    afs)
+        export AtlasSetup=/afs/cern.ch/atlas/software/dist/AtlasSetup
+        alias asetup='source $AtlasSetup/scripts/asetup.sh'
+        alias setup_cmt="source /afs/cern.ch/sw/contrib/CMT/v1r21/mgr/setup.sh"
+        alias setup_panda="source /afs/cern.ch/atlas/offline/external/GRID/DA/panda-client/latest/etc/panda/panda_setup.sh"
+        export PATHENA_GRID_SETUP_SH="/afs/cern.ch/project/gd/LCG-share/current_3.2/etc/profile.d/grid-env.sh"
+    ;;
+    *)
+        true
+    ;;
+esac
+
+
+#-----------------------------------------------------------------------------
+# xrootd
+#-----------------------------------------------------------------------------
+# case "$ME" in
+#     pennt3)
+#         xls()
+#         {
+#             xrd hn.at3f dirlist $1
+#         }
+#     ;;
+#     ucsct3)
+#         xls-headprv()
+#         {
+#             xrd headprv dirlist $1
+#         }
+#         xls-nfsprv()
+#         {
+#             xrd nfsprv dirlist $1
+#         }
+#     ;;
+# esac
+
+
+#-----------------------------------------------------------------------------
+# oracle
+#-----------------------------------------------------------------------------
+mysetup_oracle()
+{
+    case "$ME" in
+        afs)
+            if [ $SLC_VERSION = "4" ]; then
+                echo "  - setting up oracle"
+                export LD_LIBRARY_PATH=/afs/cern.ch/sw/lcg/external/oracle/11.2.0.1.0/slc4_ia32_gcc34/lib:$LD_LIBRARY_PATH
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/cx_Oracle/5.0.1_python2.5/slc4_ia32_gcc34/lib/python2.5/site-packages:$PYTHONPATH
+            elif [ $SLC_VERSION = "5" ]; then
+                echo "  - setting up oracle"
+                export LD_LIBRARY_PATH=/afs/cern.ch/sw/lcg/external/oracle/11.2.0.1.0/x86_64-slc5-gcc43-opt/lib:$LD_LIBRARY_PATH
+                export PYTHONPATH=/afs/cern.ch/sw/lcg/external/cx_Oracle/5.0.1_python2.5/x86_64-slc5-gcc43-opt/lib/python2.5/site-packages:$PYTHONPATH
+            else
+                echo "  - not setting up oracle"
+            fi
+        ;;
+        *)
+            echo "  - not setting up oracle"
+        ;;
+    esac
+    alias ora="~/.rlfe/rlfe -size 150 sqlplus atlas_trt_elec_w/B.W1ll1ams@ATLAS_ELTRT"
+}
+
+if $SETUP_ORACLE ; then
+    mysetup_oracle
+fi
+
+
+#-----------------------------------------------------------------------------
+# yaml
+#-----------------------------------------------------------------------------
+# if [ $ME = "pennt3" ]; then
+#     echo "  - setting up PyYAML"
+#     export PYTHONPATH=/usr/local/lib/python2.6/site-packages:$PYTHONPATH
+# fi
+
+
