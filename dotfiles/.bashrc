@@ -92,7 +92,7 @@ fi
 
 
 #-----------------------------------------------------------------------------
-# source other environment setup files in plugins/
+# source other environment setup files in init/
 #-----------------------------------------------------------------------------
 
 #!/bin/bash
