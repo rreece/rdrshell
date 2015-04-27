@@ -22,7 +22,7 @@ else
         CUR_ME="unknown"
         # check the HOSTNAME of the server
         case "$HOSTNAME" in
-            lxplus*|pc-penn-*|trtdaq2|*.cern.ch)
+            lxplus*|pc-penn-*|trtdaq2)  # *.cern.ch
                 CUR_ME="afs"
             ;;
             at3*.hep.upenn.edu)
