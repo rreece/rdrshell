@@ -1,4 +1,7 @@
 
+# turn off system bell
+set bell-style none
+
 # these allow you to use ctrl+left/right arrow keys
 # to jump the cursor over words
 "\e[5C": forward-word
