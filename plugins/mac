@@ -1,7 +1,0 @@
-# rdrshell/plugins/mac
-#-----------------------------------------------------------------------------
-
-export PATH=/opt/local/bin:$PATH
-
-alias t3="ssh atlas02.ucsc.edu"
-
