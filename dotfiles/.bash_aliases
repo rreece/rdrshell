@@ -22,7 +22,7 @@ alias cp_existing="rsync -ahC --existing -I -i "
 alias cp_rsync="rsync -ahC -i "
 
 ## ls
-alias l="ls -CFG"
+alias l="\ls -CFG"
 alias ls="\ls -CFG"
 alias lsd="\ls -CGd */"
 alias ld="\ls -CGd */"
@@ -95,7 +95,7 @@ alias pyrootb="python -i -c \"from ROOT import *; import rootlogon; b = TBrowser
 
 ## screen
 alias sc="screen"
-alias scl="screen -ls"
+alias scls="screen -ls"
 alias scr="screen -r"
 alias dupscreen='screen bash -c "cd \"$PWD\" && exec \"$SHELL\" --login"'
 alias scd="dupscreen"
