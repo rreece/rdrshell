@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/Users/reece/code/cxx/P4Calc'
-let g:netrw_dirhist_2='/Users/reece/tex-at-github/rreece.github.io/.git'
-let g:netrw_dirhist_3='/Users/reece/at-github/markdown-memo-cp-me'
-let g:netrw_dirhist_4='/Users/reece/tex-at-cern/ZprimeTauTau2012COMPaper/comments/2014-08-20'

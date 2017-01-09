@@ -1,9 +1,0 @@
-Rint.Logon: $(HOME)/code/root/rootlogon.C
-#Gui.Backend:                qt
-#Gui.Factory:                qtgui
-#Plugin.TGuiFactory: qtgui   TQtRootGuiFactory  QtRoot       "TQtRootGuiFactory()"
-
-# Path where to look for TrueType fonts
-#Unix.*.Root.UseTTFonts: true
-#Unix.*.Root.TTFontPath: /usr/share/fonts/truetype/msttcorefonts
-#Unix.*.Root.MacroPath: /afs/cern.ch/sw/lcg/app/releases/ROOT/5.26.00a/slc4_ia32_gcc34/root/tmva/test
