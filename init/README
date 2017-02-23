@@ -1,0 +1,8 @@
+################################################################################ 
+#                                                                              # 
+# Copy bash scripts into this directory to be sourced by the rdrshell .bashrc, #
+# which should be installed by copying it from the dotfiles directory into     #
+# $HOME.  Example scripts can be copied from the plugins directory.  There is  #
+# no need to edit this file.                                                   #
+#                                                                              #
+################################################################################ 
