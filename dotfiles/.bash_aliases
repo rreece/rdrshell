@@ -68,6 +68,12 @@ alias e="emacs -nw"
 alias svn_status='svn status --show-updates | grep "^[^?]"'
 alias svns='svn status | grep "^[^?]"'
 alias rm_svn_dirs="find . -type d -name .svn -exec rm -rf {} \;"
+svn-tag()
+{
+    # svn cp svn+ssh://reece@svn.cern.ch/reps/atlasphys-susy/Physics/SUSY/Analyses/Diphoton/NonPointingDiphoton2016/trunk svn+ssh://reece@svn.cern.ch/reps/atlasphys-susy/Physics/SUSY/Analyses/Diphoton/NonPointingDiphoton2016/tags/NonPointingDiphoton2016-00-00-09 -m "Tagging: NonPointingDiphoton2016-00-00-09"
+    # svn-tag svn+ssh://reece@svn.cern.ch/reps/atlasphys-susy/Physics/SUSY/Analyses/Diphoton/NonPointingDiphoton2016 NonPointingDiphoton2016-00-00-09
+    svn cp $1/trunk $1/tags/$2 -m "Tagging: $2"
+}
 
 ## git helper aliases
 alias git-st="git status"
