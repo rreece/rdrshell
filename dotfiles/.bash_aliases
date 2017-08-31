@@ -16,7 +16,7 @@ alias rm="rm -i"
 #alias rm="\mv -f --target-directory=$HOME/.Trash/"
 alias empty_trash="\rm -rfv $HOME/.Trash/*"
 alias del="\rm -rf"
-alias pur="\rm -v *~"
+#alias pur="\rm -v *~"
 alias purge='find . -name "*~" -print -exec \rm -f {} \;'
 alias cp_existing="rsync -ahC --existing -I -i "
 alias cp_rsync="rsync -ahC -i "
@@ -186,7 +186,7 @@ real_path()
 
 scp_path()
 {
-    echo "${USER}@${HOSTNAME}:`real_path`" 
+    echo "${USER}@${HOSTNAME}:`real_path $1`" 
 }
 
 
