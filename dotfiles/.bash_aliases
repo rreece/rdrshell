@@ -14,7 +14,7 @@ alias mc="mv -i"
 #alias cp="cp -i"
 alias rm="rm -i"
 #alias rm="\mv -f --target-directory=$HOME/.Trash/"
-alias empty_trash="\rm -rfv $HOME/.Trash/*"
+#alias empty_trash="\rm -rfv $HOME/.Trash/*"
 alias del="\rm -rf"
 #alias pur="\rm -v *~"
 alias purge='find . -name "*~" -print -exec \rm -f {} \;'
@@ -38,6 +38,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+up(){ DEEP=$1; for i in $(seq 1 ${DEEP:-"1"}); do cd ../; done; }
 alias back="cd -"
 
 ## apt
@@ -110,13 +111,13 @@ alias scd="dupscreen"
 alias f="find . -name "
 alias h="history | grep "
 alias p="ps aux | grep "
-alias o="gnome-open "
+alias o="open "
 alias t="tail"
 alias tf="tail -f "
 alias pc='python -ic "from __future__ import division; from math import *"'
 
 ## misc
-alias clear="echo ''; echo ''; echo '________________________________________________________________________________'; clear"
+alias "clear=echo ''; echo ''; echo '________________________________________________________________________________'; \clear"
 #alias duh="du -k * | sort -rn | cut -f2 | xargs -d '\n' du -chs"
 alias duh="du -hs */"
 alias dud="du -k */ | sort -rn | cut -f2 | xargs -d '\n' du -chs"
@@ -124,7 +125,7 @@ alias grep="grep --color=auto"
 alias less="less -I -R "
 alias more="less"
 alias newalias="vi ~/.bash_aliases"
-alias stopssh="sudo /etc/init.d/ssh stop"
+#alias stopssh="sudo /etc/init.d/ssh stop"
 
 
 #-----------------------------------------------------------------------------
