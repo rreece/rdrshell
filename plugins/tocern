@@ -1,0 +1,79 @@
+#!/bin/bash
+#-----------------------------------------------------------------------------
+# file: tocern
+# author: Ryan Reece <ryan.reece@cern.ch>
+# date : 2010-06-21
+# -----------------------------------------------------------------------------
+
+
+#-----------------------------------------------------------------------------
+# aliases
+#-----------------------------------------------------------------------------
+## scp
+#alias scp_lx="scp -r ${CERN_USER}@lxplus.cern.ch:"
+
+## athena
+#alias makeit="cmt config; source setup.sh; make"
+
+
+#-----------------------------------------------------------------------------
+# paths
+#-----------------------------------------------------------------------------
+export CERN_USER="reece"
+export MY_MAXIDISK_DIR="/afs/cern.ch/atlas/maxidisk/d71/www/share/"
+
+
+#-----------------------------------------------------------------------------
+# svn
+#-----------------------------------------------------------------------------
+export SVN_USER=${CERN_USER}
+export SVNATLASOFF=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasoff
+export SVNATLASSUSY=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasphys-susy 
+# export SVNATLASPERF=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasperf # old
+# export SVNATLASPHYS=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasphys # old
+# export SVNATLASUSR=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasusr # deprecated, now readonly
+export SVNATLASGROUPS=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasgroups
+export SVNATLASUSR=svn+ssh://svn.cern.ch/reps/atlas-reece
+export SVNATLASINST=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasinst
+export SVNUCSC=svn+ssh://${CERN_USER}@svn.cern.ch/reps/atlasinst/Institutes/UCSC
+export SVNPENN=svn+ssh://${CERN_USER}@svn.cern.ch/reps/penn
+export SVNTRT=svn+ssh://${CERN_USER}@svn.cern.ch/reps/trtdaq
+export SVNROOT=${SVNATLASOFF}
+
+
+#-----------------------------------------------------------------------------
+# ssh
+#-----------------------------------------------------------------------------
+#alias pcpenns="ssh -X ${CERN_USER}@pc-penn-s-01.cern.ch"
+#alias pcpenn3="ssh -X ${CERN_USER}@pc-penn-d-03.cern.ch"
+#alias pcpenn4="ssh -X ${CERN_USER}@pc-penn-d-04.cern.ch"
+alias lxplus="ssh -X ${CERN_USER}@lxplus.cern.ch"
+alias lx="ssh -X ${CERN_USER}@lxplus.cern.ch"
+alias lx5="ssh -X ${CERN_USER}@lxplus5.cern.ch"
+alias trtdaq2="ssh -X ${CERN_USER}@trtdaq2.cern.ch"
+
+## scp
+#alias scp_lx="scp -r ${CERN_USER}@lxplus.cern.ch:"
+
+## athena
+#alias makeit="cmt config; source setup.sh; make"
+
+
+#-----------------------------------------------------------------------------
+# kerberos
+#-----------------------------------------------------------------------------
+
+## kinit
+alias ki="kinit ${CERN_USER}@CERN.CH"
+
+## depending on the host
+# case "$ME" in
+#     ucsct3)
+#         export KRB5_CONFIG=${HOME}/.krb5.conf
+#     ;;
+#     *)
+#         true
+#     ;;
+# esac
+
+
