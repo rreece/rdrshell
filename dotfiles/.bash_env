@@ -106,7 +106,10 @@ get_os()
     simple=$(get_os_simple)
     case "${simple}" in
         linux)
-            if [[ -r '/etc/issue' ]] ; then
+            if [[ -r '/etc/centos-release' ]] ; then
+                # check /etc/centos-release
+                CUR_OS=$(echo $(head -1 /etc/centos-release) | cut -d'\' -f1)
+            elif [[ -r '/etc/issue' ]] ; then
                 # check /etc/issue
                 CUR_OS=$(echo $(head -1 /etc/issue) | cut -d'\' -f1)
             fi
