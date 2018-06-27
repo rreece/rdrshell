@@ -15,7 +15,7 @@ Installation
 
 First, clone this package into your home directory as ".rdrshell":
 
-    git clone https://github.com/rreece/rdrshell.git .rdrshell
+    git clone git@github.com:rreece/rdrshell.git .rdrshell
 
 Then run the install script, that simply copies the dotfiles into your $HOME:
 
