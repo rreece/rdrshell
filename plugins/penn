@@ -20,6 +20,24 @@ echo -ne "$LIGHTCYAN"
 
 
 #-----------------------------------------------------------------------------
+# UPenn
+#-----------------------------------------------------------------------------
+#export PENN_USER="rreece"
+#
+## ssh
+#alias ssh_higgs="ssh ${PENN_USER}@higgs.hep.upenn.edu"
+#alias ssh_dionysus="ssh ${PENN_USER}@dionysus.hep.upenn.edu"
+#alias ssh_lxsrv02="ssh ${PENN_USER}@lxsrv02.hep.upenn.edu"
+#alias ssh_ptklx="ssh ${PENN_USER}@ptklx.hep.upenn.edu"
+#alias ssh_zeus="ssh ${PENN_USER}@zeus.hep.upenn.edu"
+#alias ssh_pennt3="ssh ${PENN_USER}@at3i00.hep.upenn.edu"
+#
+## scp
+#alias scp_zeus="scp -r ${PENN_USER}@zeus.hep.upenn.edu:"
+#alias scp_dio="scp -r ${PENN_USER}@dionysus.hep.upenn.edu:"
+
+
+#-----------------------------------------------------------------------------
 # basic environment setup
 #-----------------------------------------------------------------------------
 case "$ME" in

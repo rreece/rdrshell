@@ -312,3 +312,42 @@ fi
 # fi
 
 
+#-----------------------------------------------------------------------------
+# tossing files (MY_TOSS_INBOX)
+#-----------------------------------------------------------------------------
+#case "$ME" in
+#    afs)
+#        export MY_TOSS_INBOX=$HOME/www/share/inbox
+#    ;;
+#    nas)
+#        export MY_TOSS_INBOX=/nfs/reece/inbox
+#    ;;
+#    *)
+#        true
+#    ;;
+#esac
+
+toss_lx()
+{
+    for f in "${@%/}"
+    do
+        rsync -ahC -i $f ${CERN_USER}@lxplus.cern.ch:www/share/inbox/
+    done
+}
+
+toss_afs()
+{
+    for f in "${@%/}"
+    do
+        rsync -ahC -i $f ${CERN_USER}@lxplus.cern.ch:/afs/cern.ch/work/r/reece/public/inbox/
+    done
+}
+
+toss_eos()
+{
+    for f in "${@%/}"
+    do
+        rsync -ahC -i $f ${CERN_USER}@lxplus.cern.ch:/eos/user/r/reece/public/inbox/
+    done
+}
+
