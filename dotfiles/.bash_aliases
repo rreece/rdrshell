@@ -58,8 +58,8 @@ alias vi="vim"
 #alias e="vim"
 #alias :e="vim"
 alias vsp="vim -O"
-alias svi="sudo vim"
-alias sv="sudo vim"
+#alias svi="sudo vim"
+#alias sv="sudo vim"
 alias vl="vim `latest`"
 
 ## emacs
