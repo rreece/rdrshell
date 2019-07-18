@@ -42,15 +42,15 @@ up(){ DEEP=$1; for i in $(seq 1 ${DEEP:-"1"}); do cd ../; done; }
 alias back="cd -"
 
 ## apt
-alias -- -search="apt-cache search"
-alias -- -show="apt-cache show"
-alias -- -install="sudo apt-get install"
-alias -- -remove="sudo apt-get remove"
-alias -- -update="sudo apt-get update"
-alias -- -upgrade="sudo apt-get upgrade"
-alias -- -source="dpkg -S"
-alias -- -list="dpkg -l"
-alias -- -files="dpkg -L"
+#alias -- -search="apt-cache search"
+#alias -- -show="apt-cache show"
+#alias -- -install="sudo apt-get install"
+#alias -- -remove="sudo apt-get remove"
+#alias -- -update="sudo apt-get update"
+#alias -- -upgrade="sudo apt-get upgrade"
+#alias -- -source="dpkg -S"
+#alias -- -list="dpkg -l"
+#alias -- -files="dpkg -L"
 
 ## vi
 alias v="vim"
@@ -61,6 +61,7 @@ alias vsp="vim -O"
 #alias svi="sudo vim"
 #alias sv="sudo vim"
 alias vl="vim `latest`"
+alias vim_or_maybe_emacs="vim"
 
 ## emacs
 alias e="emacs -nw"
@@ -182,7 +183,7 @@ real_path()
     else
         p=`pwd`
     fi
-    python -c "import os, sys; print os.path.realpath('${p}')"
+    python2 -c "import os, sys; print os.path.realpath('${p}')"
 }
 
 scp_path()
