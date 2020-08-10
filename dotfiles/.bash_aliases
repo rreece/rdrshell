@@ -22,14 +22,14 @@ alias cp_existing="rsync -ahC --existing -I -i "
 alias cp_rsync="rsync -ahC -i "
 
 ## ls
-alias l="\ls -CFG"
+alias l="\ls -G1F"
+alias l1="\ls -G1F"
 alias ls="\ls -CFG"
 alias lsd="\ls -CGd */"
 alias ld="\ls -CGd */"
 alias ll="\ls -GlhF"
 alias la="\ls -GAF"
 alias lt="\ls -GlhtFr"
-alias l1="\ls -G1F"
 alias lm="\ls -GAlhtFr | tail"
 latest() { \ls -ct1 $* | head -1 ; }
 
